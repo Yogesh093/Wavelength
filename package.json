@@ -1,4 +1,10 @@
 {
+  "name": "random-chat",
+  "version": "1.0.0",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
   "dependencies": {
     "express": "^5.2.1",
     "ws": "^8.21.3"
