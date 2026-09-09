@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Wavelength — talk to a stranger</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;700;800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap"
+        rel="stylesheet"
+    >
+
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
+
+</head>
+
+
+<body>
+
+
+    <!-- ============================= -->
+    <!-- LANDING SCREEN                 -->
+    <!-- ============================= -->
+
+    <div id="landingScreen">
+
+        <div class="landingGrid">
+
+            <div class="landingCopy">
+
+                <div class="brand">
+                    <span class="brandDot"></span>
+                    Wavelength
+                </div>
+
+                <h1>Tune into<br>a stranger.</h1>
+
+                <p class="subtitle">
+                    Pick a name, turn on your camera, and get matched
+                    with someone new. Move on whenever you want —
+                    no accounts, no history.
+                </p>
+
+                <form id="landingForm">
+
+                    <label for="usernameInput">Your name</label>
+
+                    <input
+                        type="text"
+                        id="usernameInput"
+                        placeholder="What should we call you?"
+                        maxlength="20"
+                        autocomplete="off"
+                    >
+
+                    <div class="mediaToggles">
+
+                        <label class="toggle">
+                            <input type="checkbox" id="wantVideo" checked>
+                            <span>Camera</span>
+                        </label>
+
+                        <label class="toggle">
+                            <input type="checkbox" id="wantAudio" checked>
+                            <span>Microphone</span>
+                        </label>
+
+                    </div>
+
+                    <button
+                        type="submit"
+                        id="startButton"
+                        class="primaryButton"
+                    >
+                        Go on air
+                    </button>
+
+                    <p id="landingError" class="landingError hidden"></p>
+
+                </form>
+
+            </div>
+
+
+            <div class="landingPreview">
+
+                <div class="dial" aria-hidden="true">
+                    <svg viewBox="0 0 240 240">
+                        <circle class="dialRing" cx="120" cy="120" r="104"></circle>
+                        <g class="dialTicks"></g>
+                        <circle class="dialHub" cx="120" cy="120" r="6"></circle>
+                        <line class="dialNeedle" x1="120" y1="120" x2="120" y2="34"></line>
+                    </svg>
+                </div>
+
+                <div class="previewFrame">
+
+                    <video id="previewVideo" autoplay playsinline muted></video>
+
+                    <div id="previewPlaceholder" class="previewPlaceholder">
+                        <span id="previewInitial">?</span>
+                    </div>
+
+                    <div class="previewLabel">Your camera</div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- ============================= -->
+    <!-- CALL SCREEN                    -->
+    <!-- ============================= -->
+
+    <div
+        id="callScreen"
+        class="hidden"
+    >
+
+        <header>
+
+            <div class="brand">
+                <span class="brandDot" id="brandDot"></span>
+                Wavelength
+            </div>
+
+            <div class="statusBlock">
+                <span id="statusDisplay" class="statusDisplay">Off air</span>
+                <span id="strangerDisplay" class="strangerDisplay"></span>
+            </div>
+
+            <button id="leaveButton" class="dangerButton">
+                Sign off
+            </button>
+
+        </header>
+
+
+        <div class="stage">
+
+            <div class="remoteWrap">
+
+                <video id="remoteVideo" autoplay playsinline></video>
+
+                <div id="remotePlaceholder" class="remotePlaceholder">
+                    <div class="remotePlaceholderInner">
+                        <span id="remoteInitial">·</span>
+                        <p id="remoteStatusText">Searching for a signal…</p>
+                    </div>
+                </div>
+
+                <div class="localPip">
+                    <video id="localVideo" autoplay playsinline muted></video>
+                    <div id="localPlaceholder" class="localPlaceholder">
+                        <span id="localInitial">?</span>
+                    </div>
+                </div>
+
+                <div id="remoteCameraOffBadge" class="remoteBadge hidden">Camera off</div>
+
+            </div>
+
+
+            <aside class="chatPanel">
+
+                <div class="chatPanelHeader">Messages</div>
+
+                <div id="messages" class="messages"></div>
+
+                <form id="messageForm">
+
+                    <input
+                        type="text"
+                        id="messageInput"
+                        placeholder="Type a message…"
+                        autocomplete="off"
+                        maxlength="1000"
+                        disabled
+                    >
+
+                    <button type="submit" aria-label="Send message">
+                        <svg viewBox="0 0 24 24" width="18" height="18">
+                            <path d="M3 11.5L20.5 3.5L14 21L11 13.5L3 11.5Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/>
+                        </svg>
+                    </button>
+
+                </form>
+
+            </aside>
+
+        </div>
+
+
+        <div class="controlBar">
+
+            <button id="micButton" class="controlButton" aria-label="Toggle microphone" aria-pressed="true">
+                <svg class="iconOn" viewBox="0 0 24 24" width="20" height="20">
+                    <path d="M12 15a3 3 0 0 0 3-3V6a3 3 0 0 0-6 0v6a3 3 0 0 0 3 3Z" fill="none" stroke="currentColor" stroke-width="1.6"/>
+                    <path d="M6 11a6 6 0 0 0 12 0M12 19v2" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+                </svg>
+                <svg class="iconOff hidden" viewBox="0 0 24 24" width="20" height="20">
+                    <path d="M12 15a3 3 0 0 0 3-3v-1M9 6.5V6a3 3 0 0 1 5.6-1.5M6 11a6 6 0 0 0 9.5 4.9M12 19v2M3 3l18 18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+                </svg>
+            </button>
+
+            <button id="cameraButton" class="controlButton" aria-label="Toggle camera" aria-pressed="true">
+                <svg class="iconOn" viewBox="0 0 24 24" width="20" height="20">
+                    <rect x="3" y="6" width="13" height="12" rx="2.5" fill="none" stroke="currentColor" stroke-width="1.6"/>
+                    <path d="M16.5 10.5l4.2-2.6a.8.8 0 0 1 1.3.65v6.9a.8.8 0 0 1-1.3.65l-4.2-2.6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+                </svg>
+                <svg class="iconOff hidden" viewBox="0 0 24 24" width="20" height="20">
+                    <path d="M3 6.75A2.25 2.25 0 0 1 5.25 4.5h6.4M16 6.5h.75A2.25 2.25 0 0 1 19 8.75V10M21.5 8.5l-4.2 2.6M16.5 13.5v1.75A2.25 2.25 0 0 1 14.25 17.5H5.25A2.25 2.25 0 0 1 3 15.25v-8M3 3l18 18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </button>
+
+            <button id="nextButton" class="nextButton" disabled>
+                Find someone new
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <script src="app.js"></script>
+
+</body>
+
+</html>
